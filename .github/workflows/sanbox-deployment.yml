@@ -18,7 +18,7 @@ jobs:
         environment: QA
         runs-on: ubuntu-latest
         steps:
-            - uses: github/branch-deploy@10.4.1
+            - uses: github/branch-deploy@v10.4.1
               id: branch-deploy
               with:
                 trigger: ".deploy"
