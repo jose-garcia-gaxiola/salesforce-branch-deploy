@@ -28,7 +28,7 @@ jobs:
               run: npm install -g @salesforce/cli@latest
             - name: Populate salesforce credentials
               run: |
-                echo '$SF_AUTH_JSON' > authFile.json
+                echo $SF_AUTH_JSON > authFile.json
               env:
                 SF_AUTH_JSON: ${{ secrets.SF_AUTH_JSON }}
             - name: Salesforce authentication
