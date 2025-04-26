@@ -28,12 +28,17 @@ jobs:
               run: npm install -g @salesforce/cli@latest
             - name: Populate salesforce credentials
               run: |
-                echo '$SF_AUTH_JSON' > authFile.json
+                echo $SF_AUTH_JSON > authFile.json
               env:
                 SF_AUTH_JSON: ${{ secrets.SF_AUTH_JSON }}
             - name: Salesforce authentication
               run: |
-                sf org login sfdx-url --sfdx-url-file authFile.json 
+                sf org login sfdx-url --sfdx-url-file authFile.json
+            - name: Get Delta
+              run: |
+                sf plugins install sfdx-git-delta
+                sf sgd source delta --to "HEAD" --from "HEAD~1" --output-dir "."
+                ls
             - name: fake regular deploy
               if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
               run: echo "I am doing a fake regular deploy"
