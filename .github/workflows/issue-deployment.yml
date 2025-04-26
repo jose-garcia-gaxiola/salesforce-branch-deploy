@@ -1,4 +1,4 @@
-name: "branch deploy demo"
+name: "Issue deploy demo"
 
 on:
   issue_comment:
