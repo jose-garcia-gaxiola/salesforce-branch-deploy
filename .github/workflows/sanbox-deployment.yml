@@ -18,12 +18,14 @@ jobs:
         environment: QA
         runs-on: ubuntu-latest
         steps:
-            - uses: github/branch-deploy@10.4.1
+            - uses: github/branch-deploy@v10.4.1
               id: branch-deploy
               with:
                 trigger: ".deploy"
                 environment: QA
             - uses: actions/checkout@v4
+            - name: Install Salesforce CLI
+              run: npm install -g @salesforce/cli@latest
             - name: fake regular deploy
               if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
               run: echo "I am doing a fake regular deploy"
