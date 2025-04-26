@@ -29,6 +29,8 @@ jobs:
             - name: Populate salesforce credentials
               run: |
                 echo '$SF_AUTH_JSON' > authFile.json
+              env:
+                SF_AUTH_JSON: ${{ secrets.SF_AUTH_JSON }}
             - name: Salesforce authentication
               run: |
                 sf org login sfdx-url --sfdx-url-file authFile.json 
