@@ -36,8 +36,9 @@ jobs:
                 sf org login sfdx-url --sfdx-url-file authFile.json
             - name: Get Delta
               run: |
-                sf plugins install sfdx-git-delta
+                echo y | sfdx plugins:install sfdx-git-delta
                 sf sgd source delta --to "HEAD" --from "HEAD~1" --output-dir "."
+                cat package/package.xml
                 ls
             - name: fake regular deploy
               if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
