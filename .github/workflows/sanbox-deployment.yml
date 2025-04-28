@@ -26,6 +26,7 @@ jobs:
             - uses: actions/checkout@v4
               with:
                 ref: ${{ steps.branch-deploy.outputs.sha }}
+                fetch-depth: 0
             - name: Install Salesforce CLI
               run: npm install -g @salesforce/cli@latest
             - name: Populate salesforce credentials
@@ -39,7 +40,7 @@ jobs:
             - name: Get Delta
               run: |
                 echo y | sfdx plugins:install sfdx-git-delta
-                sf sgd source delta --to "HEAD" --from "HEAD^" --output-dir "."
+                sf sgd source delta --to "HEAD" --from "origin/main" --output-dir "."
                 cat package/package.xml
                 ls
             - name: fake regular deploy
