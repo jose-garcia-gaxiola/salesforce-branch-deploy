@@ -37,7 +37,7 @@ jobs:
             - name: Get Delta
               run: |
                 echo y | sfdx plugins:install sfdx-git-delta
-                sf sgd source delta --to "HEAD" --from "HEAD~1" --output-dir "."
+                sf sgd source delta --to "HEAD" --from "origin/main" --output-dir "."
                 cat package/package.xml
                 ls
             - name: fake regular deploy
@@ -56,6 +56,14 @@ jobs:
             - uses: actions/checkout@v4
             - name: Install Salesforce CLI
               run: npm install -g @salesforce/cli@latest
+            - name: Populate salesforce credentials
+              run: |
+                echo $SF_AUTH_JSON > authFile.json
+              env:
+                SF_AUTH_JSON: ${{ secrets.SF_AUTH_JSON }}
+            - name: Salesforce authentication
+              run: |
+                sf org login sfdx-url --sfdx-url-file authFile.json
             - name: fake regular deploy
               if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
               run: echo "I am doing a fake regular deploy"
