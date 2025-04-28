@@ -24,6 +24,8 @@ jobs:
                 trigger: ".deploy"
                 environment: QA
             - uses: actions/checkout@v4
+              with:
+                ref: ${{ steps.branch-deploy.outputs.sha }}
             - name: Install Salesforce CLI
               run: npm install -g @salesforce/cli@latest
             - name: Populate salesforce credentials
