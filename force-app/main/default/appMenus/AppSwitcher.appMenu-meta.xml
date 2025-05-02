@@ -124,8 +124,4 @@
         <name>standard__MSJApp</name>
         <type>CustomApplication</type>
     </appMenuItems>
-    <appMenuItems>
-        <name>Dreamhouse</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
 </AppMenu>
