@@ -15,14 +15,13 @@ permissions:
 jobs:
     deploy:
         if: ${{ github.event.issue.pull_request }}
-        environment: QA
         runs-on: ubuntu-latest
         steps:
             - uses: github/branch-deploy@v10.4.1
               id: branch-deploy
               with:
                 trigger: ".deploy"
-                environment: QA
+                environment_targets: QA,UAT
             - uses: actions/checkout@v4
               with:
                 ref: ${{ steps.branch-deploy.outputs.sha }}
